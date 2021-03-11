@@ -136,4 +136,4 @@ data/
 data.zip
 
 # pickle files
-.pickle
+*.pickle
