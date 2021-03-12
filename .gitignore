@@ -134,3 +134,6 @@ dmypy.json
 # ./data
 data/
 data.zip
+
+# pickle files
+*.pickle
