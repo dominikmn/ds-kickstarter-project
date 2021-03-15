@@ -39,6 +39,17 @@ class kickstarter_predictor():
             print ("Creation of the directory output failed.")
  
     def expand_json_cols(self, df):
+        """
+        Expand columns that contain json objects
+
+        Parameters
+        ---------
+        df: Pandas DataFrame
+
+        Returns
+        --------
+        df: Pandas DataFrame
+        """
         df_dicts = pd.DataFrame()
         print('---------- Parsing json ------------')
         for col in self._json_cols:
@@ -59,6 +70,17 @@ class kickstarter_predictor():
         return df
 
     def data_cleaning(self, df):
+        """
+        Filter data frame by relevant columns and rows.
+
+        Parameters
+        ---------
+        df: Pandas DataFrame
+
+        Returns
+        --------
+        df: Pandas DataFrame
+        """
         self.base_features = ['country', 'currency', 'category_name', 'location_type', 'goal', 
                     'launched_at', 'created_at', 'blurb', 'state', 'deadline', 'static_usd_rate']
         df = df[self.base_features]
@@ -72,6 +94,17 @@ class kickstarter_predictor():
         return df
     
     def feature_engineering(self, df):
+        """
+        Add custom features
+
+        Parameters
+        ---------
+        df: Pandas DataFrame
+
+        Returns
+        --------
+        df: Pandas DataFrame
+        """
         df['duration'] = (df.deadline-df.launched_at)/(3600*24)
         df['duration'] = df['duration'].round(2)
         df.drop(['deadline'], axis=1, inplace=True)
@@ -94,6 +127,17 @@ class kickstarter_predictor():
         return df
 
     def read_csv(self, name):
+        """
+        Read csv file in kickstarter format
+
+        Parameters
+        ---------
+        name: String. Only for display purposes.
+
+        Returns
+        --------
+        df: Pandas DataFrame
+        """
         file_name = input(f"Please enter {name} csv file name: ")
         if(not file_name): 
             file_name = './data/Kickstarter003.csv'
@@ -101,6 +145,17 @@ class kickstarter_predictor():
         return pd.read_csv(file_name)
     
     def processor_lossy(self, df):
+        """
+        Apply data frame preprocessing. Outside of sklearn.pipeline
+
+        Parameters
+        ---------
+        df: Pandas DataFrame
+
+        Returns
+        --------
+        df: Pandas DataFrame
+        """
         df = self.expand_json_cols(df)
         df = self.data_cleaning(df)
         X = df.drop('state', axis=1)
@@ -115,6 +170,17 @@ class kickstarter_predictor():
         dump(self.model, o)
 
     def model_fit_and_export(self):
+        """
+        Wrapper for fit and export tasks
+
+        Parameters
+        ---------
+        None
+
+        Returns
+        --------
+        None
+        """
         df = self.read_csv('train')
         self.X_train, self.y_train = self.processor_lossy(df)
         self.X_train = self.feature_engineering(self.X_train)
@@ -123,6 +189,17 @@ class kickstarter_predictor():
         self.dump_model()
 
     def model_load(self):
+        """
+        Load model from pickle file and store in class attribute.
+
+        Parameters
+        ---------
+        None
+
+        Returns
+        --------
+        None
+        """
         model_file_name = ''
         model_file_name = input('Please enter model file name: ')
         if(model_file_name):
@@ -141,6 +218,17 @@ class kickstarter_predictor():
         pd.DataFrame(self.y_pred).to_csv(o, index = False)
     
     def readcsv_and_predict(self):
+        """
+        Wrapper for read and predict tasks
+
+        Parameters
+        ---------
+        None
+
+        Returns
+        --------
+        None
+        """
         df = self.read_csv('test')
         self.X_test, self.y_test = self.processor_lossy(df)  
         self.X_test = self.feature_engineering(self.X_test)
