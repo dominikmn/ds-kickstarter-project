@@ -137,3 +137,6 @@ data.zip
 
 # pickle files
 *.pickle
+
+# ./output
+output/
