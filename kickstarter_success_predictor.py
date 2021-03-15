@@ -11,6 +11,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
+from os import mkdir
 
 class kickstarter_predictor():
     
@@ -32,6 +33,10 @@ class kickstarter_predictor():
             sparse_threshold=0
         )
         self.model = RandomForestClassifier(n_estimators=120, random_state=self._RSEED, max_features = 'sqrt', n_jobs=-1, verbose = 1)
+        try:
+            mkdir('./output')
+        except OSError:
+            print ("Creation of the directory output failed.")
  
     def expand_json_cols(self, df):
         df_dicts = pd.DataFrame()
