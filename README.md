@@ -10,46 +10,40 @@ Kickstarter is not a store, backers pledge to projects to help them come to life
 
 
 ## The Repository consists of:
-* Project: Kickstarter - XXX.pdf summarizing findings in a presentation
-* XXX.ipynb Jupyter Notebook containing the code and steps of analyzing data
-* a figure showing the most important influencers for the Model
-* XXX.ipynb : contains our EDA.    
-* XXX.ipynb : contains our exploratory modelling.  
-* train.py : script for training a model  
-* predict.py : script for predicting values using a test data set   
-* feature_engineering.py : library of functions used in train and predicitions    
-* environment.yml: includes environment requirements
-
+* Project: Kickstarter - kickstarter_presentation.pdf summarizing findings in a presentation
+* kickstarter_01_cleaning.ipynb & kickstarter_02_preparation.ipynb & kickstarter_03_feature_engineering.ipynb Jupyter Notebooks containing the code and steps of analyzing data
+* kickstarter_EDA.ipynb : contains our EDA  
+* kickstarter_04_model.ipynb : contains our exploratory modelling 
+* kickstarter_success_predictor.py : script for training a model & predicting values using a test data set       
 ## Summary
-* model performs best with an accuracy of 
-* SVM
-* KNN
-* with the AdaBoost model 71% of failure and 81% of successful cases can be predicted correctly
-* most important influencers in model (name the model) are
-    * 
-    * 
-    * 
-    * 
-    * 
-* KNN has at least ... as most important features
+* Random Forest model performs best with an accuracy of 0.80
+* Baselinemodel with Dummy Classifier (Accuracy = 0.61)
+* SVM Classifier (Accuracy = 0.74)
+* KNN Classifier (Accuracy = 0.65)
+* SGD Classifier with GridSearchCV (Accuracy = 0.61)
+* Extra Trees (Accuracy = 0.79)
+* Quadratic Discriminant Analysis (Accuracy = 0.67)
+* AdaBoost GridSearchCV (Accuracy = 0.77)
+* LightGBM GridSearchCV (Accuracy  = 0.79)
+* XGBoost (Accuracy = 0.78)
+* Naive Bayes (Accuracy = 0.73)
+* most important influencers in model Random Forest are:
+    * goal_usd
+    * duration
+    * blurb_len
+    * launched_at_month & launched_at_year
+    * country_US & country_GB
+* projects in Hongkong have the highest chance to be successful, projects from Italy have only less than 50% chance
 * projects in Hongkong have the highest chance to be successful, projects from Italy have only less than 50% chance
 
 ## Outlook
 * further data cleaning, e.g. remove outliers from the data
-* get out most important features from SVM to identify the most common feature that influence success
 * check if further new variables can help to improve the models
-* check other models
 * Take a look on these projects which have collected more money as they initial wanted 
-* analyze how backers count might be affected to find out what attracts many backers
-
-## To train the model run the following (in our case data_folder is 'kickstarter/data'):
-    XXX.py <data_folder>
-
-## To make predictions using a dataset (one is provided, replace filename as necessary) use the following command:
-    XXX.py models/XXX_model.sav test_data/X_test.csv test_data/y_test.csv
+* further analysis on subcategories
+* which specific words in the blurb correlate with successful projects
     
 ## Environment & packages via makefile
-
 
 ### Enviroment:
 - python=3.8.5
