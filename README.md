@@ -12,9 +12,8 @@ Kickstarter is not a store, backers pledge to projects to help them come to life
 ## The Repository consists of:
 * Project: Kickstarter - kickstarter_presentation.pdf summarizing findings in a presentation
 * kickstarter_01_cleaning.ipynb & kickstarter_02_preparation.ipynb & kickstarter_03_feature_engineering.ipynb Jupyter Notebooks containing the code and steps of analyzing data
-* a figure showing the most important influencers for the Model
-* kickstarter_EDA.ipynb : contains our EDA.    
-* kickstarter_04_model.ipynb : contains our exploratory modelling.  
+* kickstarter_EDA.ipynb : contains our EDA  
+* kickstarter_04_model.ipynb : contains our exploratory modelling 
 * kickstarter_success_predictor.py : script for training a model & predicting values using a test data set       
 ## Summary
 * Random Forest model performs best with an accuracy of 0.80
