@@ -54,8 +54,6 @@ class kickstarter_predictor():
         return df
 
     def data_cleaning(self, df):
-        print('---------- Data Cleaning --------')
-        print(f"Shape before clean: {df.shape}")
         self.base_features = ['country', 'currency', 'category_name', 'location_type', 'goal', 
                     'launched_at', 'created_at', 'blurb', 'state', 'deadline', 'static_usd_rate']
         df = df[self.base_features]
@@ -64,8 +62,7 @@ class kickstarter_predictor():
 
         df = df.query("state == 'successful' or state == 'failed'")
         dic = {'successful' : 1, 'failed' : 0}
-        df.loc[:,'state'] = df.state.map(dic)
-        print(f"Shape after clean: {df.shape}")
+        df['state'] = df['state'].map(dic)
 
         return df
     
@@ -108,16 +105,15 @@ class kickstarter_predictor():
     def dump_model(self): 
         #r = f"{rmse_score_final:.0f}".replace('.','') 
         t = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-        dump(self.model, f"model_dump_{t}.pickle")
+        o = f"./output/model_dump_{t}.pickle"
+        print(f'Dumping model to pickle: {o}')
+        dump(self.model, o)
 
     def model_fit_and_export(self):
         df = self.read_csv('train')
         self.X_train, self.y_train = self.processor_lossy(df)
-        #df_imputed = self.imputer.fit_transform(self.X_train[self._cat_features_impute])
-        #df_onehot = self.onehotenc.fit_transform(self.X_train[self._cat_features_onehot])
         self.X_train = self.feature_engineering(self.X_train)
         self.X_train = self.preprocessor.fit_transform(self.X_train)
-        print(self.X_train.shape)
         self.model.fit(self.X_train, self.y_train)
         self.dump_model()
 
@@ -135,7 +131,9 @@ class kickstarter_predictor():
     def prediction_tocsv(self):
         #r = f"{rmse_score_final:.0f}".replace('.','') 
         t = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-        pd.DataFrame(self.y_pred).to_csv(f"y_pred_{t}.csv", index = False)
+        o = f"./output/y_pred_{t}.csv"
+        print(f'Writing prediction to csv: {o}')
+        pd.DataFrame(self.y_pred).to_csv(o, index = False)
     
     def readcsv_and_predict(self):
         df = self.read_csv('test')
@@ -148,6 +146,7 @@ class kickstarter_predictor():
 
 def main():
     ks = kickstarter_predictor()
+
     ks.model_fit_and_export()
 
     ks.model_load()
