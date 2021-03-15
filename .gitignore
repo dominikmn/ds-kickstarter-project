@@ -133,7 +133,11 @@ dmypy.json
 
 # ./data
 data/
+data_notebooks/
 data.zip
 
 # pickle files
 *.pickle
+
+# ./output
+output/
