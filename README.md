@@ -1,3 +1,8 @@
+# Kickstarter Project (alpha version)
+The final version version of this repo is found [here](https://github.com/mue94/ds-kickstarter-project).
+
+---------------------------------------
+
 This project considers that we are a consulting company that advise people to find out **which probability they have to get a successful fundraising** by kickstarters with their projects. We analyse the features of thier project and in specaly we will tell you what is better not to do but how our clients **can improve their chances** to reach their aim.  
 
 ## What is the project about and what is Kickstarter
